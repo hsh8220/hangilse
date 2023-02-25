@@ -1,0 +1,413 @@
+= HANGIL SE HTTP API GUIDE
+:toc: left
+:toc-title: Contents
+:toclevels: 2
+:sectnums:
+:sectlinks:
+
+== 로그인
+
+NOTE: 첫 가입시 (회원가입 > 본인인증 > 로그인 > JWT 토큰 발행)
+가입 후 (로그인 > JWT 토큰 발행)
+
+//=== 로그인
+//
+//==== Request
+//include::{snippets}/login/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/login/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/login/http-response.adoc[leveloffset=+3]
+//
+//NOTE: 본인인증이 되지 않을 경우 message에 token 대신 "Identity verification is required"
+//
+//=== 리프레시토큰
+//
+//==== Request
+//include::{snippets}/refresh-token/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/refresh-token/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/refresh-token/http-response.adoc[leveloffset=+3]
+//
+//NOTE: accessToken 12시간, refreshToken 7일
+//
+//=== 회원 가입
+//
+//==== Request
+//include::{snippets}/create-account/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/create-account/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/create-account/http-response.adoc[leveloffset=+3]
+//
+//NOTE: 회원 가입 실패시 "code: DUPLICATED_ACCOUNT", "status: 400"
+//
+//=== 본인 인증
+//
+//==== Request
+//include::{snippets}/account-identify/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/account-identify/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/account-identify/http-response.adoc[leveloffset=+3]
+//
+//=== 아이디 중복 체크
+//
+//NOTE: false인 경우 중복
+//
+//==== Request
+//include::{snippets}/check-duplicate-id/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/check-duplicate-id/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/check-duplicate-id/http-response.adoc[leveloffset=+3]
+//
+//=== 닉네임 중복 체크
+//
+//NOTE: false인 경우 중복
+//
+//==== Request
+//include::{snippets}/check-duplicate-name/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/check-duplicate-name/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/check-duplicate-name/http-response.adoc[leveloffset=+3]
+//
+//=== 인증 번호 재전송
+//
+//==== Request
+//include::{snippets}/auth-code-resend/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/auth-code-resend/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/auth-code-resend/http-response.adoc[leveloffset=+3]
+//
+//=== 비밀번호 찾기
+//
+//다음과 같은 조합으로 비밀번호 찾기를 진행 한다.
+//
+//1.인증 번호 재전송을 통해 이메일로 인증코드 6자리를 보낸다.
+//
+//2.본인 인증을 통해 인증을 완료 한다. > 비밀번호 수정 페이지로
+//
+//3.사용자 계정 수정하기를 통해 비밀번호를 변경할 수 있도록 한다.
+//
+//== 사용자 계정
+//
+//NOTE: 사용자 계정 API 일반적인 고객은 USER 권한 사용
+//
+//=== Common
+//
+//.Account Role
+//|===
+//|Account Type|Value
+//
+//|Administrator
+//|"ADMIN"
+//
+//
+//|User
+//|"USER"
+//
+//|Application
+//|"APP"
+//|===
+//
+//=== 사용자 계정 가져오기
+//
+//==== Request
+//include::{snippets}/get-account/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/get-account/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/get-account/http-response.adoc[leveloffset=+3]
+//
+//=== 사용자 현재 비밀번호 확인
+//
+//NOTE: true: 현재 비밀번호 일치, false: 불일치
+//
+//==== Request
+//include::{snippets}/account-pw-check/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/account-pw-check/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/account-pw-check/http-response.adoc[leveloffset=+3]
+//
+//=== 사용자 계정 수정하기
+//
+//NOTE: password, 닉네임 수정 시 사용하는 공통 api 해당하는 parameter만 넣어주면 됨.
+//
+//==== Request
+//include::{snippets}/update-account/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/update-account/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/update-account/http-response.adoc[leveloffset=+3]
+//
+//=== 사용자 계정 삭제하기
+//
+//==== Request
+//include::{snippets}/delete-account/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/delete-account/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/delete-account/http-response.adoc[leveloffset=+3]
+//
+//== 식당
+//
+//NOTE: 식당 추가(얌리스트 생성), 여기얌과 관련된 정보들
+//
+//=== 식당 리스트 추가
+//
+//==== Request
+//include::{snippets}/create-restaurant/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/create-restaurant/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/create-restaurant/http-response.adoc[leveloffset=+3]
+//
+//=== 식당 정보 가져오기
+//
+//==== Request
+//include::{snippets}/get-restaurant/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/get-restaurant/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/get-restaurant/http-response.adoc[leveloffset=+3]
+//
+//=== 카카오 식당 id로 식당 정보 가져오기
+//
+//==== Request
+//include::{snippets}/get-restaurant-by-ka-kao/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/get-restaurant-by-ka-kao/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/get-restaurant-by-ka-kao/http-response.adoc[leveloffset=+3]
+//
+//=== 식당 리스트 가져오기(여기얌)
+//
+//NOTE: mode = near: 여기 가까워, want: 여기 갈래, recommend: 여기 강추, done: 여기 가봤어
+//
+//==== Request
+//include::{snippets}/get-restaurant-list/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/get-restaurant-list/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/get-restaurant-list/http-response.adoc[leveloffset=+3]
+//
+//== 얌리스트
+//
+//=== 필터 및 달성률 정보를 위한 metaInfo 가져오기
+//
+//==== Request
+//include::{snippets}/get-meta-info/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/get-meta-info/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/get-meta-info/http-response.adoc[leveloffset=+3]
+//
+//=== 얌리스트 가져오기
+//
+//NOTE: mode = 0:모두, 1:얌얌리스트, 2:완료얌리스트, 3:재방문의사없음
+//
+//==== Request
+//include::{snippets}/get-yam-list-test/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/get-yam-list-test/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/get-yam-list-test/http-response.adoc[leveloffset=+3]
+//
+//=== 식당 정보에서 내 얌으로 가져오기
+//
+//==== Request
+//include::{snippets}/save-yam-from-restaurant-test/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/save-yam-from-restaurant-test/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/save-yam-from-restaurant-test/http-response.adoc[leveloffset=+3]
+//
+//=== 얌 수정하기
+//
+//==== Request
+//include::{snippets}/update-yam-test/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/update-yam-test/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/update-yam-test/http-response.adoc[leveloffset=+3]
+//
+//=== 얌 완료 (후기작성 안함)
+//
+//==== Request
+//include::{snippets}/update-yam-visit-test/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/update-yam-visit-test/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/update-yam-visit-test/http-response.adoc[leveloffset=+3]
+//
+//=== 얌 삭제
+//
+//NOTE: isClosed = true : 폐업  false : 재방문 의사 없음
+//
+//==== Request
+//include::{snippets}/delete-yam-test/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/delete-yam-test/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/delete-yam-test/http-response.adoc[leveloffset=+3]
+//
+//== 리뷰
+//
+//=== 리뷰 등록하기
+//
+//NOTE: [리뷰 등록] (POST) 리뷰 등록하기 -> [RESPONSE] 리뷰 ID -> (POST) 리뷰 사진 등록
+//
+//==== Request
+//include::{snippets}/create-review/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/create-review/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/create-review/http-response.adoc[leveloffset=+3]
+//
+//=== 리뷰 사진 등록
+//
+//==== Request
+//include::{snippets}/save-image-path/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/save-image-path/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/save-image-path/http-response.adoc[leveloffset=+3]
+//
+//=== 리뷰 수정하기
+//
+//==== Request
+//include::{snippets}/update-review/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/update-review/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/update-review/http-response.adoc[leveloffset=+3]
+//
+//=== 리뷰 조회하기
+//
+//==== Request
+//include::{snippets}/get-review-by-id/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/get-review-by-id/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/get-review-by-id/http-response.adoc[leveloffset=+3]
+//
+//=== 리뷰 삭제하기
+//
+//==== Request
+//include::{snippets}/delete-review/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/delete-review/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/delete-review/http-response.adoc[leveloffset=+3]
+//
+//
+//=== 리뷰 전체조회
+//
+//NOTE: company(:동행) mealTime(:식사 시간)
+//
+//.company list
+//|===
+//|Enum |Value
+//
+//|0
+//|FAMILY     //가족과
+//|1
+//|FRIEND     //친구와
+//|2
+//|DATE       //연인과
+//|3
+//|ALONE     //혼자
+//|4
+//|BUSINESS    //업무차, 회식
+//|===
+//
+//.mealTime list
+//|===
+//|Enum |Value
+//
+//|0
+//|BREAKFAST
+//|1
+//|LUNCH
+//|2
+//|DINNER
+//|===
+//
+//==== Request
+//include::{snippets}/list/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/list/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/list/http-response.adoc[leveloffset=+3]
+//
+//
+//
+//=== 리뷰 좋아요/취소
+//
+//==== Request
+//include::{snippets}/update-review-like/http-request.adoc[leveloffset=+3]
+//
+//==== Curl Request
+//include::{snippets}/update-review-like/curl-request.adoc[leveloffset=+3]
+//
+//==== Response
+//include::{snippets}/update-review-like/http-response.adoc[leveloffset=+3]
