@@ -10,6 +10,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class JwtAuthToken {
@@ -53,10 +54,13 @@ public class JwtAuthToken {
     }
 
     private Optional<String> createJwtAuthToken(String id, Set<Authority> authorities, String type, Date expiredDate) {
+        String authorityNames = authorities.stream()
+                .map(Authority::getAuthorityName)
+                .collect(Collectors.joining(","));
 
         String token = Jwts.builder()
                 .setSubject(id)
-                .claim(AUTHORITIES_KEY, authorities)
+                .claim(AUTHORITIES_KEY, authorityNames)
                 .claim(TOKEN_TYPE, type)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(expiredDate)

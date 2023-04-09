@@ -11,7 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +41,14 @@ public class AccountService implements UserDetailsService {
         return accountRepository.findByEmail(email).get();
     }
 
+    public Account getAccountById(Long id) {
+        return accountRepository.findById(id).get();
+    }
+
+    public List<Account> getAccountByIds(Set<Long> Ids) {
+        return accountRepository.findAllById(Ids);
+    }
+
     public Account getAccountByName(String name) {
         return accountRepository.findByName(name).get();
     }
@@ -46,7 +56,8 @@ public class AccountService implements UserDetailsService {
     @Transactional
     public long deleteAccountByEmail(String email) {
         Account account = this.getAccountByEmail(email);
-        accountRepository.deleteById(account.getId());
+        account.setActivated(false);
+        accountRepository.save(account);
         return account.getId();
     }
 

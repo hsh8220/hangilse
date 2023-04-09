@@ -39,7 +39,7 @@ public class JwtAuthTokenProvider {
         if(authToken.validate()) {
             Claims claims = authToken.getData();
             Collection<? extends GrantedAuthority> authorities =
-                    Arrays.stream(new String[]{claims.get(AUTHORITIES_KEY).toString()})
+                    Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                             .map(SimpleGrantedAuthority::new)
                             .collect(Collectors.toList());
 

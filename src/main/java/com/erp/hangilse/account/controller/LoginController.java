@@ -97,8 +97,9 @@ public class LoginController {
         CommonResponse response;
         if (accountService.checkDuplicateEmail(dto.getEmail()) && accountService.checkDuplicateName(dto.getName())) {
             Account account = dto.toEntity();
-            account.setActivated(true);
+            account.setActivated(false); //관리자 승인을 위한 field
             Account account_rst = accountService.addAccount(account);
+            accountStatRepository.save(AccountStat.builder().accountId(account_rst.getId()).date(LocalDate.now()).isJoin(true).build());
 
             response = CommonResponse.builder()
                     .code("JOIN_SUCCESS")

@@ -106,13 +106,12 @@ public class LoginControllerTest extends ControllerTest {
         dto.setEmail("test@aaa.bbb");
         dto.setPassword("1234");
         dto.setName("test");
-        dto.setAuthorities(Set.of(Authority.builder().authorityName("ROLE_ADMIN").build()));
 
         Account account = Account.builder()
                 .email("test@aaa.bbb")
                 .password("1234")
                 .name("test")
-                .authorities(Set.of(Authority.builder().authorityName("ROLE_ADMIN").build()))
+                .authorities(Set.of(Authority.builder().authorityName("ROLE_ENGINEER").build()))
                 .build();
         account.setId(123);
 

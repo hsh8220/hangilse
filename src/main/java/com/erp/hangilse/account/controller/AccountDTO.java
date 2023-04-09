@@ -47,15 +47,13 @@ public class AccountDTO {
 
         @NotNull
         private String name;
-        @NotNull
-        private Set<Authority> authorities;
 
         public Account toEntity() {
             Account account = Account.builder()
                     .email(email)
                     .password(password)
                     .name(name)
-                    .authorities(authorities)
+                    .authorities(Set.of(Authority.builder().authorityName("ROLE_ENGINEER").build())) //초기 생성 권한은 무조건 엔지니어, 이후 관리자가 role에 맞게 조정하는 것으로
                     .build();
 
             return account;

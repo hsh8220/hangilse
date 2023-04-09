@@ -25,7 +25,7 @@ public class GlobalControllAdvice {
 
     @ExceptionHandler(AccessDeniedException.class)
     protected ResponseEntity<ErrorResponse> accessDeniedException (AccessDeniedException e) {
-        log.error("access denied", e.getMessage());
+        log.error("access denied", e);
         final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.HANDLE_ACCESS_DENIED);
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
