@@ -1,6 +1,7 @@
 package com.erp.hangilse.project.controller;
 
 import com.erp.hangilse.global.CommonResponse;
+import com.erp.hangilse.project.domain.Comment;
 import com.erp.hangilse.project.domain.Project;
 import com.erp.hangilse.project.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -8,9 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/project")
@@ -20,7 +18,7 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/search")
-    public ResponseEntity<Page<Project>> getProjectByStatus(@RequestBody ProjectDTO.projectFilterInfo dto,
+    public ResponseEntity<Page<Project>> getProjectByStatus(@RequestBody ProjectDTO.projectFilterInfoDTO dto,
                                                             ProjectPageRequest pageRequest) {
 
         Page<Project> projects = projectService.getFilteringProject(null, dto, pageRequest.of());
@@ -68,6 +66,42 @@ public class ProjectController {
                 .code("Project DELETE")
                 .status(200)
                 .message("Project DELETE ID : "+ id)
+                .build();
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
+
+    @PostMapping("/comment")
+    public ResponseEntity<Comment> saveComment(@RequestBody ProjectDTO.createCommentDTO dto) {
+
+        Comment comment = projectService.createComment(dto);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(comment);
+    }
+
+    @PutMapping("/comment")
+    public ResponseEntity<Comment> updateComment(@RequestBody ProjectDTO.updateCommentDTO dto) {
+
+        Comment comment = projectService.updateComment(dto);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(comment);
+    }
+
+    @DeleteMapping("/comment/{id}")
+    public ResponseEntity<CommonResponse> deleteComment(@PathVariable long id) {
+
+        projectService.deleteComment(id);
+
+        CommonResponse response = CommonResponse.builder()
+                .code("Comment DELETE")
+                .status(200)
+                .message("Comment DELETE ID : "+ id)
                 .build();
 
         return ResponseEntity.ok()

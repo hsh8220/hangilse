@@ -13,6 +13,8 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -63,12 +65,16 @@ public class Project {
     private Set<Tag> tags;
 
     private Double cost;
+    private String contents;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Project(String name, String type, StatusEnum status,
                    LocalDate createTime, LocalDate completeTime, LocalDate endTime, LocalDate targetTime,
                    Client client, Account account, Set<Account> watchers,
-                   Double cost) {
+                   Double cost, String contents) {
         Assert.notNull(name, "Name Not Null");
         Assert.notNull(type, "Type Not Null");
         Assert.notNull(status, "Status Not Null");
@@ -85,5 +91,6 @@ public class Project {
         this.account = account;
         this.watchers = watchers;
         this.cost = cost;
+        this.contents = contents;
     }
 }

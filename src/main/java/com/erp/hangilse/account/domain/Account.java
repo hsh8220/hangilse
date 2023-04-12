@@ -27,10 +27,11 @@ public class Account {
     private String password;
 
     private String name;
-
+    @JsonIgnore
     private boolean activated;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinTable(
             name = "account_authority",
             joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "account_id")},

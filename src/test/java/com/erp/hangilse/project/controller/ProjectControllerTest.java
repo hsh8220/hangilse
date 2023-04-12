@@ -52,7 +52,7 @@ public class ProjectControllerTest extends ControllerTest {
         final PageRequest pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "createTime");
         Page<Project> projectList = new PageImpl(projects, pageable, 10);
 
-        ProjectDTO.projectFilterInfo filter = new ProjectDTO.projectFilterInfo();
+        ProjectDTO.projectFilterInfoDTO filter = new ProjectDTO.projectFilterInfoDTO();
         filter.setStatus("WORKING");
 
         given(projectService.getFilteringProject(any(), any(), any())).willReturn(projectList);
