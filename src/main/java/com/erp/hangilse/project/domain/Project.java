@@ -65,6 +65,7 @@ public class Project {
     private Set<Tag> tags;
 
     private Double cost;
+    @Column(length = 2000)
     private String contents;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -78,7 +79,6 @@ public class Project {
         Assert.notNull(name, "Name Not Null");
         Assert.notNull(type, "Type Not Null");
         Assert.notNull(status, "Status Not Null");
-        Assert.notNull(createTime, "CreateTime Not Null");
 
         this.name = name;
         this.type = type;

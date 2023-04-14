@@ -18,10 +18,10 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/search")
-    public ResponseEntity<Page<Project>> getProjectByStatus(@RequestBody ProjectDTO.projectFilterInfoDTO dto,
+    public ResponseEntity<Page<Project>> getProjectByFilter(@RequestBody ProjectDTO.projectFilterInfoDTO dto,
                                                             ProjectPageRequest pageRequest) {
 
-        Page<Project> projects = projectService.getFilteringProject(null, dto, pageRequest.of());
+        Page<Project> projects = projectService.getFilteringProject(dto, pageRequest.of());
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)

@@ -26,7 +26,7 @@ import static com.erp.hangilse.project.domain.QProject.project;
 public class ProjectQueryRepository {
     private final JPAQueryFactory queryFactory;
 
-    public Page<Project> findProjectDynamicQuery(String email, ProjectDTO.projectFilterInfoDTO dto, Pageable pageable) {
+    public Page<Project> findProjectDynamicQuery(ProjectDTO.projectFilterInfoDTO dto, Pageable pageable) {
 
         JPAQuery query = this.queryFactory.selectFrom(project);
         //N+1 회피를 위한 fetch join 적용, food 는 page 기능문제로 hibernate.default_batch_fetch_size 사이즈 변경 적용
@@ -35,13 +35,14 @@ public class ProjectQueryRepository {
         query.leftJoin(project.watchers, account).fetchJoin();
         query.leftJoin(project.comments, comment).fetchJoin();
 
-        if(email != null) query.where(project.account.email.eq(email));
-
         //searching
+        if(dto.getEmail() != null && !dto.getEmail().isBlank()) query.where(project.account.email.eq(dto.getEmail()));
         if(dto.getName() != null && !dto.getName().isBlank()) query.where(project.name.contains(dto.getName()));
         if(dto.getStatus() != null && !dto.getStatus().isBlank()) query.where(project.status.eq(StatusEnum.valueOf(dto.getStatus())));
         if(dto.getType() != null && !dto.getType().isBlank()) query.where(project.type.eq(dto.getType()));
         if(dto.getStartDate() != null && dto.getEndDate() != null) query.where(project.createTime.between(dto.getStartDate(), dto.getEndDate()));
+        if(dto.getAccountName() != null && !dto.getAccountName().isBlank()) query.where(account.name.eq(dto.getAccountName()));
+        if(dto.getClientName() != null && !dto.getClientName().isBlank()) query.where(client.name.eq(dto.getClientName()));
 
         if(dto.getTags() != null && dto.getTags().size()>0) {
             query.innerJoin(project.tags, tag).fetchJoin().where(tag.name.in(dto.getTags()));

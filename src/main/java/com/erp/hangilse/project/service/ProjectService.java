@@ -44,8 +44,8 @@ public class ProjectService {
         return projectRepository.findById(id).get();
     }
 
-    public Page<Project> getFilteringProject(String email, ProjectDTO.projectFilterInfoDTO dto, Pageable pageable) {
-        return projectQueryRepository.findProjectDynamicQuery(email, dto, pageable);
+    public Page<Project> getFilteringProject(ProjectDTO.projectFilterInfoDTO dto, Pageable pageable) {
+        return projectQueryRepository.findProjectDynamicQuery(dto, pageable);
     }
     @Transactional
     public Project saveProjectFromRequest(ProjectDTO.createProjectDTO dto) {
@@ -60,7 +60,7 @@ public class ProjectService {
             project.setAccount(accountService.getAccountById(dto.getAccountId()));
         }
         if(dto.getClientId() != null) {
-            project.setClient(clientService.getCientById(dto.getClientId()));
+            project.setClient(clientService.getClientById(dto.getClientId()));
         }
         if(dto.getTargetTime() != null) {
             project.setTargetTime(dto.getTargetTime());
@@ -99,7 +99,7 @@ public class ProjectService {
             project.setAccount(accountService.getAccountById(dto.getAccountId()));
         }
         if(dto.getClientId() != null) {
-            project.setClient(clientService.getCientById(dto.getClientId()));
+            project.setClient(clientService.getClientById(dto.getClientId()));
         }
         if(dto.getTargetTime() != null) {
             project.setTargetTime(dto.getTargetTime());

@@ -1,5 +1,6 @@
-package com.erp.hangilse.client.domain;
+package com.erp.hangilse.account.board.domain;
 
+import com.erp.hangilse.account.domain.Account;
 import com.erp.hangilse.global.domain.Tag;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,38 +18,41 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Client {
-
+public class Board {
     @Id
     @GeneratedValue
-    @Column(name = "client_id")
+    @Column(name = "board_id")
     private long id;
-    private String name;
     private String type;
+    private BoardLevel level;
     private LocalDate createTime;
     private LocalDate updateTime;
-    private String address;
-    @Column(length = 1000)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "acoount_id")
+    private Account account;
+    @Column(length = 2000)
     private String contents;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "client_tag_table",
-            joinColumns = {@JoinColumn(name = "client_id", referencedColumnName = "client_id")},
+    @JoinTable(name = "board_tag_table",
+            joinColumns = {@JoinColumn(name = "board_id", referencedColumnName = "board_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id", referencedColumnName = "tag_id")})
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Tag> tags;
 
     @Builder
-    public Client (String name, String type, LocalDate createTime, LocalDate updateTime, String address, String contents, Set<Tag> tags) {
-        Assert.notNull(name, "Name Not Null");
-        Assert.notNull(type, "Type Not Null");
+    public Board (String type, BoardLevel level, LocalDate createTime, LocalDate updateTime,
+                 Account account, String contents, Set<Tag> tags) {
 
-        this.name = name;
+        Assert.notNull(type, "Type Not Null");
+        Assert.notNull(level, "Level Not Null");
+        Assert.notNull(account, "Account Not Null");
+
         this.type = type;
+        this.level = level;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.address = address;
+        this.account = account;
         this.contents = contents;
         this.tags = tags;
     }
-
 }

@@ -1,15 +1,12 @@
 package com.erp.hangilse.project.controller;
 
-import com.erp.hangilse.account.domain.Account;
-import com.erp.hangilse.client.domain.Client;
-import com.erp.hangilse.global.domain.Tag;
-import com.erp.hangilse.project.domain.StatusEnum;
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Set;
@@ -59,46 +56,14 @@ public class ProjectDTO {
     public static class projectFilterInfoDTO {
         private LocalDate startDate;
         private LocalDate endDate;
+        @Email(message = "not email form")
+        private String email;
         private String name;
         private String status;
         private String type;
+        private String accountName;
         private String clientName;
         private Set<String> tags;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class selectProjectListDTO {
-        private long id;
-        private String name;
-        private String type;
-        private StatusEnum status;
-        private LocalDate createTime;
-        private LocalDate completeTime;
-        private LocalDate endTime;
-        private LocalDate targetTime;
-        private Client client;
-        private Account account;
-        private Set<Account> watchers;
-        private Set<Tag> tags;
-        private Double cost;
-        @QueryProjection
-        public selectProjectListDTO(long id, String name, String type, StatusEnum status, LocalDate createTime, LocalDate completeTime, LocalDate endTime, LocalDate targetTime) {
-            this.id = id;
-            this.name = name;
-            this.type = type;
-            this.status = status;
-            this.createTime = createTime;
-            this.completeTime = completeTime;
-            this.endTime = endTime;
-            this.targetTime = targetTime;
-//            this.client = client;
-//            this.account = account;
-//            this.watchers = watchers;
-//            this.tags = tags;
-//            this.cost = cost;
-        }
     }
 
     @Getter

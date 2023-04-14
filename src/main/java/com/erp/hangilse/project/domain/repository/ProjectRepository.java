@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-    @EntityGraph(attributePaths = {"account", "tag", "client"})
+    @EntityGraph(attributePaths = {"account", "tag", "client", "watchers", "comments"})
     Page<Project> findByStatus(String status, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"account", "tag", "client"})
+    @EntityGraph(attributePaths = {"account", "tag", "client", "watchers", "comments"})
     List<Project> findByCreateTimeBetween(LocalDate from, LocalDate to);
 
     void deleteById(Long id);
