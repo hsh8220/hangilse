@@ -2,11 +2,13 @@ package com.erp.hangilse.project.service;
 
 import com.erp.hangilse.account.domain.Account;
 import com.erp.hangilse.account.service.AccountService;
+import com.erp.hangilse.client.domain.Client;
 import com.erp.hangilse.client.service.ClientService;
 import com.erp.hangilse.global.service.TagService;
 import com.erp.hangilse.project.controller.ProjectDTO;
 import com.erp.hangilse.project.domain.Comment;
 import com.erp.hangilse.project.domain.Project;
+import com.erp.hangilse.project.domain.ProjectType;
 import com.erp.hangilse.project.domain.StatusEnum;
 import com.erp.hangilse.project.domain.repository.CommentRepository;
 import com.erp.hangilse.project.domain.repository.ProjectQueryRepository;
@@ -20,8 +22,11 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -47,6 +52,35 @@ public class ProjectService {
     public Page<Project> getFilteringProject(ProjectDTO.projectFilterInfoDTO dto, Pageable pageable) {
         return projectQueryRepository.findProjectDynamicQuery(dto, pageable);
     }
+
+    public List<ProjectDTO.projectListInfoDTO> getProjectList(ProjectDTO.projectFilterInfoDTO dto) {
+        return projectQueryRepository.findProjectDynamicQuery(dto);
+    }
+
+    public ProjectDTO.createProjectMetaDTO getCreateProjectMeta() {
+        ProjectDTO.createProjectMetaDTO meta = new ProjectDTO.createProjectMetaDTO();
+
+        //프로젝트 타입 리스트
+        List<String> projectTypes = new ArrayList<String>();
+        for(ProjectType type : ProjectType.values()) {
+            projectTypes.add(type.getValue());
+        }
+
+        //Client 리스트
+        List<Client> clients = this.clientService.getClientAll();
+        Map<Long, String> clientMap = clients.stream().collect(Collectors.toMap(Client::getId, Client::getName));
+
+        //Account 리스트
+        List<Account> accounts = this.accountService.getAccountAll();
+        Map<Long, String> accountMap = accounts.stream().collect(Collectors.toMap(Account::getId, Account::getName));
+
+        meta.setTypes(projectTypes);
+        meta.setClients(clientMap);
+        meta.setAccounts(accountMap);
+
+        return meta;
+    }
+
     @Transactional
     public Project saveProjectFromRequest(ProjectDTO.createProjectDTO dto) {
         Project project = Project.builder()

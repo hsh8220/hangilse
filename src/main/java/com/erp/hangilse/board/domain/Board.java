@@ -1,4 +1,4 @@
-package com.erp.hangilse.account.board.domain;
+package com.erp.hangilse.board.domain;
 
 import com.erp.hangilse.account.domain.Account;
 import com.erp.hangilse.global.domain.Tag;

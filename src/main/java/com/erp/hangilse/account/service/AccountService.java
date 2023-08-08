@@ -4,6 +4,8 @@ import com.erp.hangilse.account.domain.Account;
 import com.erp.hangilse.account.domain.AccountAdapter;
 import com.erp.hangilse.account.domain.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +37,14 @@ public class AccountService implements UserDetailsService {
         Account account = this.getAccountByEmail(email);
         account.setPassword(passwordEncoder.encode(password));
         return accountRepository.save(account);
+    }
+
+    public List<Account> getAccountAll() {
+        return accountRepository.findAll();
+    }
+
+    public Page<Account> getAccountAll(Pageable pageable) {
+        return accountRepository.findAll(pageable);
     }
 
     public Account getAccountByEmail(String email) {

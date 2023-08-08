@@ -1,7 +1,7 @@
-package com.erp.hangilse.account.board.domain.repository;
+package com.erp.hangilse.board.domain.repository;
 
-import com.erp.hangilse.account.board.controller.BoardDTO;
-import com.erp.hangilse.account.board.domain.Board;
+import com.erp.hangilse.board.controller.BoardDTO;
+import com.erp.hangilse.board.domain.Board;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.erp.hangilse.account.board.domain.QBoard.board;
+import static com.erp.hangilse.board.domain.QBoard.board;
 import static com.erp.hangilse.account.domain.QAccount.account;
 import static com.erp.hangilse.global.domain.QTag.tag;
 

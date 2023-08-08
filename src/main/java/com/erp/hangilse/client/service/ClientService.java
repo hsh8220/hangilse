@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -22,6 +23,10 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final ClientQueryRepository clientQueryRepository;
     private final TagService tagService;
+
+    public List<Client> getClientAll() {
+        return this.clientRepository.findAll();
+    }
 
     public Page<Client> getClientAll(Pageable pageable) {
         return this.clientRepository.findAll(pageable);

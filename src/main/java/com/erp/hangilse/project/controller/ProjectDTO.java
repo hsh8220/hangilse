@@ -1,14 +1,14 @@
 package com.erp.hangilse.project.controller;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.erp.hangilse.project.domain.StatusEnum;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ProjectDTO {
@@ -29,6 +29,16 @@ public class ProjectDTO {
         private Set<String> tags;
         private Double cost;
         private String contents;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @EqualsAndHashCode
+    public static class createProjectMetaDTO {
+        private List<String> types;
+        private Map<Long, String> clients;
+        private Map<Long, String> accounts;
     }
 
     @Getter
@@ -65,6 +75,35 @@ public class ProjectDTO {
         private String clientName;
         private Set<String> tags;
     }
+
+    @Data
+    @NoArgsConstructor
+    public static class projectListInfoDTO {
+        private Long id;
+        private String name;
+        private String type;
+        private StatusEnum status;
+        private LocalDate createTime;
+        private LocalDate completeTime;
+        private LocalDate endTime;
+        private LocalDate targetTime;
+        private String clientName;
+        private String assignee;
+
+        public projectListInfoDTO(Long id, String name, String type, StatusEnum status, LocalDate createTime, LocalDate completeTime, LocalDate endTime, LocalDate targetTime, String clientName, String assignee) {
+            this.id = id;
+            this.name = name;
+            this.type = type;
+            this.status = status;
+            this.createTime = createTime;
+            this.completeTime = completeTime;
+            this.endTime = endTime;
+            this.targetTime = targetTime;
+            this.clientName = clientName;
+            this.assignee = assignee;
+        }
+    }
+
 
     @Getter
     @Setter

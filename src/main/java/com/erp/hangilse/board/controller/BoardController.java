@@ -1,9 +1,7 @@
-package com.erp.hangilse.account.board.controller;
+package com.erp.hangilse.board.controller;
 
-import com.erp.hangilse.account.board.domain.Board;
-import com.erp.hangilse.account.board.service.BoardService;
-import com.erp.hangilse.client.controller.ClientDTO;
-import com.erp.hangilse.client.domain.Client;
+import com.erp.hangilse.board.domain.Board;
+import com.erp.hangilse.board.service.BoardService;
 import com.erp.hangilse.global.CommonResponse;
 import com.erp.hangilse.project.controller.ProjectPageRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,7 @@ public class BoardController {
 
     @PostMapping("/search")
     public ResponseEntity<Page<Board>> getClientByFilter(@RequestBody BoardDTO.BoardFilterInfoDTO dto,
-                                                          ProjectPageRequest pageRequest) {
+                                                         ProjectPageRequest pageRequest) {
 
         Page<Board> projects = boardService.getBoardByFilter(dto, pageRequest.of());
 

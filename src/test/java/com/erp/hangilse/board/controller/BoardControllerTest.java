@@ -1,15 +1,11 @@
 package com.erp.hangilse.board.controller;
 
 import com.erp.hangilse.ControllerTest;
-import com.erp.hangilse.account.board.controller.BoardDTO;
-import com.erp.hangilse.account.board.domain.Board;
-import com.erp.hangilse.account.board.domain.BoardLevel;
-import com.erp.hangilse.account.board.service.BoardService;
+import com.erp.hangilse.board.domain.Board;
+import com.erp.hangilse.board.domain.BoardLevel;
+import com.erp.hangilse.board.service.BoardService;
 import com.erp.hangilse.account.domain.Account;
 import com.erp.hangilse.account.domain.Authority;
-import com.erp.hangilse.client.controller.ClientDTO;
-import com.erp.hangilse.client.domain.Client;
-import com.erp.hangilse.client.service.ClientService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;

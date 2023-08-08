@@ -4,10 +4,7 @@ import com.erp.hangilse.account.service.AccountService;
 import com.erp.hangilse.global.CommonResponse;
 import com.erp.hangilse.global.TokenResponse;
 import com.erp.hangilse.account.domain.Account;
-import com.erp.hangilse.account.domain.AccountStat;
-import com.erp.hangilse.account.domain.repository.AccountStatRepository;
 import com.erp.hangilse.account.service.LoginService;
-import com.erp.hangilse.account.service.MailService;
 import com.erp.hangilse.global.security.JwtAuthToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -15,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,9 +21,7 @@ import java.util.Optional;
 public class LoginController {
 
     private final LoginService loginService;
-    private final MailService mailService;
     private final AccountService accountService;
-    private final AccountStatRepository accountStatRepository;
 
     @PostMapping("/sign")
     public ResponseEntity<TokenResponse> login(@RequestBody AccountDTO.loginDTO loginDTO) {
@@ -99,7 +93,6 @@ public class LoginController {
             Account account = dto.toEntity();
             account.setActivated(false); //관리자 승인을 위한 field
             Account account_rst = accountService.addAccount(account);
-            accountStatRepository.save(AccountStat.builder().accountId(account_rst.getId()).date(LocalDate.now()).isJoin(true).build());
 
             response = CommonResponse.builder()
                     .code("JOIN_SUCCESS")

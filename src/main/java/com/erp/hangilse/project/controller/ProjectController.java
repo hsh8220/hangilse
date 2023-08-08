@@ -1,5 +1,7 @@
 package com.erp.hangilse.project.controller;
 
+import com.erp.hangilse.account.service.AccountService;
+import com.erp.hangilse.client.service.ClientService;
 import com.erp.hangilse.global.CommonResponse;
 import com.erp.hangilse.project.domain.Comment;
 import com.erp.hangilse.project.domain.Project;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/project")
@@ -28,6 +32,16 @@ public class ProjectController {
                 .body(projects);
     }
 
+    @PostMapping("/list")
+    public ResponseEntity<List<ProjectDTO.projectListInfoDTO>> getProjectListByFilter(@RequestBody ProjectDTO.projectFilterInfoDTO dto) {
+
+        List<ProjectDTO.projectListInfoDTO> projectList = projectService.getProjectList(dto);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(projectList);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
 
@@ -36,6 +50,16 @@ public class ProjectController {
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(project);
+    }
+
+    @GetMapping("/meta")
+    public ResponseEntity<ProjectDTO.createProjectMetaDTO> getProjectMeta() {
+
+        ProjectDTO.createProjectMetaDTO meta = projectService.getCreateProjectMeta();
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(meta);
     }
 
     @PostMapping

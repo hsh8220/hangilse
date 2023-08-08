@@ -1,4 +1,4 @@
-package com.erp.hangilse.account.board.domain;
+package com.erp.hangilse.board.domain;
 
 public enum BoardLevel {
     IMPORTANT,

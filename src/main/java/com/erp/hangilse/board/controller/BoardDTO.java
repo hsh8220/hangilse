@@ -1,4 +1,4 @@
-package com.erp.hangilse.account.board.controller;
+package com.erp.hangilse.board.controller;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

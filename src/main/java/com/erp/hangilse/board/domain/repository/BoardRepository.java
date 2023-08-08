@@ -1,6 +1,6 @@
-package com.erp.hangilse.account.board.domain.repository;
+package com.erp.hangilse.board.domain.repository;
 
-import com.erp.hangilse.account.board.domain.Board;
+import com.erp.hangilse.board.domain.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;

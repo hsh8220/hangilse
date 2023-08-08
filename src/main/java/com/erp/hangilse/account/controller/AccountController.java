@@ -3,8 +3,6 @@ package com.erp.hangilse.account.controller;
 import com.erp.hangilse.account.service.AccountService;
 import com.erp.hangilse.global.CommonResponse;
 import com.erp.hangilse.account.domain.Account;
-import com.erp.hangilse.account.domain.AccountStat;
-import com.erp.hangilse.account.domain.repository.AccountStatRepository;
 import com.erp.hangilse.account.service.LoginService;
 import com.erp.hangilse.global.security.JwtAuthToken;
 import com.erp.hangilse.global.security.JwtAuthTokenProvider;
@@ -23,7 +21,6 @@ public class AccountController {
 
     private final LoginService loginService;
     private final AccountService accountService;
-    private final AccountStatRepository accountStatRepository;
     private final JwtAuthTokenProvider jwtAuthTokenProvider;
 
     @GetMapping
@@ -96,7 +93,6 @@ public class AccountController {
         String email = (String) jwtAuthToken.getData().get("sub");
 
         long id = accountService.deleteAccountByEmail(email);
-        accountStatRepository.save(AccountStat.builder().accountId(id).date(LocalDate.now()).isJoin(false).build());
 
         CommonResponse response = CommonResponse.builder()
                 .code("DELETE ACCOUNT SUCCESS")

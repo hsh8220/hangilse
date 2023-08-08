@@ -1,10 +1,10 @@
-package com.erp.hangilse.account.board.service;
+package com.erp.hangilse.board.service;
 
-import com.erp.hangilse.account.board.controller.BoardDTO;
-import com.erp.hangilse.account.board.domain.Board;
-import com.erp.hangilse.account.board.domain.BoardLevel;
-import com.erp.hangilse.account.board.domain.repository.BoardQueryRepository;
-import com.erp.hangilse.account.board.domain.repository.BoardRepository;
+import com.erp.hangilse.board.controller.BoardDTO;
+import com.erp.hangilse.board.domain.Board;
+import com.erp.hangilse.board.domain.BoardLevel;
+import com.erp.hangilse.board.domain.repository.BoardQueryRepository;
+import com.erp.hangilse.board.domain.repository.BoardRepository;
 import com.erp.hangilse.global.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
